@@ -1,11 +1,10 @@
 //Função que simula comnicação com correspondente bancário final.
-const withdraw = (amount: number, account: string, agency: string, tokenPermission: string) => {
+const withdraw = (amount: number, account: string, agency: string) => {
     try {
-        if (tokenPermission === 'token_teste') { //Simulando conta de teste inválida.
+        if (account === 'T1111') { //Simulando conta de teste inválida.
             throw new Error('not authorized.');
         } else {
             // Simulando batida em sistema bancário
-            setTimeout(() => {
                 return {
                     data: {
                         account,
@@ -15,7 +14,6 @@ const withdraw = (amount: number, account: string, agency: string, tokenPermissi
                         code: 201,
                     }
                 }
-            }, 2000);
         }
     } catch (err) {
         return {

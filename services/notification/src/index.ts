@@ -1,7 +1,8 @@
 import { Kafka } from 'kafkajs';
-import { createUser, depositSuccess } from './constants/topics';
+import { createUser, depositSuccess, withdrawSuccess } from './constants/topics';
 import createUserController from './controllers/createUser';
 import depositSuccessController from './controllers/depositSuccess';
+import withdrawSuccessController from './controllers/withdrawSuccess';
 import database from './config/database';
 
 database.connection.on('Error', console.error.bind(console, 'Database connection error'));
@@ -14,7 +15,7 @@ const kafka = new Kafka({
 const consumer = kafka.consumer({ groupId: 'send-notification-group-receiver' });
 async function run() {
     await consumer.connect();
-    await consumer.subscribe({ topics: [createUser, depositSuccess] });
+    await consumer.subscribe({ topics: [createUser, depositSuccess, withdrawSuccess] });
 
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
@@ -24,6 +25,9 @@ async function run() {
             } 
             if(topic ===  depositSuccess){
                 depositSuccessController(payload.userId, payload.amount);
+            }
+            if(topic ===  withdrawSuccess){
+                withdrawSuccessController(payload.userId, payload.amount);
             }
         },
     });

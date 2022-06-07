@@ -1,6 +1,7 @@
 import { Kafka } from 'kafkajs';
 import { depositRequest, withdrawRequest } from './constants/topics';
 import deposit from './controllers/deposit';
+import withdraw from './controllers/withdraw';
 
 const kafka = new Kafka({
     brokers: ['localhost:9092'],
@@ -23,7 +24,8 @@ async function run() {
                 await deposit(payload, producer);
             }
             if (topic === withdrawRequest) {
-                console.log("Saque");
+                console.log("sasasas")
+                await withdraw(payload, producer);
             }
         },
     });

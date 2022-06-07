@@ -7,8 +7,6 @@ import account from './routes/account';
 
 const app = express();
 
-//Podemos concentrar middleware no API gateway
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(urlencoded({ extended: false }));

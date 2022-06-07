@@ -17,6 +17,6 @@ proxy.on('proxyReq', function (proxyReq: any, req: any) {
 });
 
 routes.post('/deposit', auth, (request: Request, response: Response) => proxy.web(request, response, { target: ACCOUNT_API_URL }));
-routes.post('/withdraw', (request: Request, response: Response) => proxy.web(request, response, { target: ACCOUNT_API_URL }));
+routes.post('/withdraw', auth, (request: Request, response: Response) => proxy.web(request, response, { target: ACCOUNT_API_URL }));
 
 export default routes;

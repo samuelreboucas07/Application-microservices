@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { depositInvalid, depositRequest } from '../constants/topics';
+import { depositRequest } from '../constants/topics';
 import getByAccount from '../repositories/getByAccount';
 import producer from '../services/messenger/producer';
 
