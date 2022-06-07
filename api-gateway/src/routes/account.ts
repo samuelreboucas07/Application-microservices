@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import auth from '../middlewares/auth';
-import { USERS_API_URL } from '../config/urlsRedirect';
+import { ACCOUNT_API_URL } from '../config/urlsRedirect';
 import httpProxy from 'http-proxy';
 
 const routes = Router();
@@ -16,8 +16,7 @@ proxy.on('proxyReq', function (proxyReq: any, req: any) {
     }
 });
 
-routes.get('/getById/:id?', auth, (request: Request, response: Response) => proxy.web(request, response, { target: USERS_API_URL }));
-routes.post('/create', (request: Request, response: Response) => proxy.web(request, response, { target: USERS_API_URL }));
-routes.post('/login', (request: Request, response: Response) => proxy.web(request, response, { target: USERS_API_URL }));
+routes.post('/deposit', auth, (request: Request, response: Response) => proxy.web(request, response, { target: ACCOUNT_API_URL }));
+routes.post('/withdraw', (request: Request, response: Response) => proxy.web(request, response, { target: ACCOUNT_API_URL }));
 
 export default routes;
